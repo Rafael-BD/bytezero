@@ -1,16 +1,27 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { getCssText } from "../../stitches.config";
+import Topbar from "@/components/topbar";
+import Footer from "@/components/footer";
 
 const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
+  src: [
+    {
+      path: "./fonts/GeistVF.woff",
+      weight: "100 900",
+    },
+  ],
   variable: "--font-geist-sans",
-  weight: "100 900",
 });
 const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
+  src: [
+    {
+      path: "./fonts/GeistMonoVF.woff",
+      weight: "100 900",
+    },
+  ],
   variable: "--font-geist-mono",
-  weight: "100 900",
 });
 
 export const metadata: Metadata = {
@@ -25,8 +36,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
+      <head>
+        <style id="stitches" dangerouslySetInnerHTML={{ __html: getCssText() }} />
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        <Topbar />
         {children}
+        <Footer />
       </body>
     </html>
   );

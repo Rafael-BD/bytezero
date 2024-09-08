@@ -1,18 +1,19 @@
+import colors from '@/style/colors';
 import { createStitches } from '@stitches/react';
 
 export const { styled, getCssText } = createStitches({
     theme: {
-        fonts: {
-            system: 'system-ui',
-        },
         colors: {
-            hiContrast: 'hsl(100, 88%, 46%)',
-            loContrast: 'white',
+            primary: colors.primary,
+            secondary: colors.secondary,
+            tertiary: colors.tertiary,
+            background: colors.background,
+            foreground: colors.foreground,
         },
         fontSizes: {
-            1: '13px',
-            2: '15px',
-            3: '17px',
+            1: '24px',
+            2: '28px',
+            3: '32px',
         },
     },
 });

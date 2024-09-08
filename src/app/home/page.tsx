@@ -1,9 +1,9 @@
 import React from 'react';
 // import colors from '../style/colors';
-import { styled } from '../../stitches.config';
+import { styled } from '../../../stitches.config';
 
 const Text = styled('p', {
-    fontFamily: '$system',
+    fontFamily: '$geistSans',
     color: '$hiContrast',
 
     variants: {
