@@ -11,9 +11,9 @@ export const { styled, getCssText } = createStitches({
             foreground: colors.foreground,
         },
         fontSizes: {
-            1: '24px',
-            2: '28px',
-            3: '32px',
+            1: '0.75rem',
+            2: '0.875rem', 
+            3: '1rem', 
         },
     },
 });

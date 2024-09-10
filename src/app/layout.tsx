@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { getCssText } from "../../stitches.config";
-import Topbar from "@/components/topbar";
-import Footer from "@/components/footer";
 
 const geistSans = localFont({
   src: [
@@ -40,9 +38,7 @@ export default function RootLayout({
         <style id="stitches" dangerouslySetInnerHTML={{ __html: getCssText() }} />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <Topbar />
         {children}
-        <Footer />
       </body>
     </html>
   );
