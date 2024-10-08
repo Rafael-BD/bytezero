@@ -1,3 +1,4 @@
+"use client";
 import {
   Navbar as NextUINavbar,
   NavbarContent,
@@ -10,20 +11,26 @@ import {
 import { Kbd } from "@nextui-org/kbd";
 import { Link } from "@nextui-org/link";
 import { Input } from "@nextui-org/input";
-import { link as linkStyles } from "@nextui-org/theme";
 import { Avatar } from "@nextui-org/avatar";
+import { Image } from "@nextui-org/image";
 import NextLink from "next/link";
-import clsx from "clsx";
+import {
+  Dropdown,
+  DropdownItem,
+  DropdownTrigger,
+  DropdownMenu,
+} from "@nextui-org/dropdown";
+import { BellIcon } from "@heroicons/react/24/outline";
 
 const siteConfig = {
   navItems: [
     { href: "/", label: "Home" },
-    { href: "/meus-cursos", label: "Meus Cursos" },
-    { href: "/conta", label: "Conta" },
+    { href: "/learning", label: "Aprendizado" },
+    { href: "/account", label: "Conta" },
   ],
   navMenuItems: [
     { label: "Home" },
-    { label: "Meus Cursos" },
+    { label: "Aprendizado" },
     { label: "Conta" },
   ],
 };
@@ -37,8 +44,8 @@ export const Navbar = () => {
         input: "text-sm",
       }}
       endContent={
-        <Kbd className="hidden lg:inline-block" keys={["command"]}>
-          K
+        <Kbd className="hidden lg:inline-block pl-2 pr-2 justify-center items-center">
+          /
         </Kbd>
       }
       labelPlacement="outside"
@@ -49,47 +56,59 @@ export const Navbar = () => {
 
   return (
     <NextUINavbar
-      className="bg-background-dark-500"
-      height={"4rem"}
-      maxWidth="2xl"
+      className="bg-background-dark-500 bg-opacity-70 backdrop-blur-md overflow-hidden"
+      height={"5rem"}
+      maxWidth="full"
       position="sticky"
     >
-      <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
-        <NavbarBrand as="li" className="gap-3 max-w-fit">
-          <NextLink className="flex justify-start items-center gap-1" href="/">
-            <p className="font-bold text-inherit">ACME</p>
+      <NavbarContent className="w-full flex justify-between items-center">
+        {/* Logo */}
+        <NavbarBrand as="li" className="flex items-center">
+          <NextLink href="/">
+            <Image
+              isBlurred
+              alt="Bytezero logo"
+              src="https://nextui.org/images/album-cover.png"
+              width={"50rem"}
+            />
           </NextLink>
         </NavbarBrand>
-        <ul className="hidden lg:flex gap-4 justify-start ml-2">
-          {siteConfig.navItems.map((item) => (
-            <NavbarItem key={item.href}>
-              <NextLink
-                className={clsx(
-                  linkStyles({ color: "foreground" }),
-                  "data-[active=true]:text-primary data-[active=true]:font-medium",
-                )}
-                color="foreground"
-                href={item.href}
-              >
-                {item.label}
-              </NextLink>
-            </NavbarItem>
-          ))}
-        </ul>
-      </NavbarContent>
 
-      <NavbarContent
-        className="hidden sm:flex basis-1/5 sm:basis-full"
-        justify="end"
-      >
-        <NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem>
-        <NavbarItem className="hidden md:flex">
-          <Avatar
-            color="primary"
-            size="md"
-            src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
-          />
+        {/* Search input */}
+        <NavbarItem className="flex-grow justify-center">
+          {searchInput}
         </NavbarItem>
+
+        <NavbarContent className="gap-4 items-center" justify="end">
+          <NavbarItem className="hidden sm:flex items-center">
+            <Dropdown>
+              <DropdownTrigger>
+                <button className="relative flex items-center mr-5">
+                  <BellIcon className="h-8 w-8 text-secondary-600" />
+                  <span className="absolute top-0 right-0 h-2 w-2 bg-red-500 rounded-full" />
+                </button>
+              </DropdownTrigger>
+              <DropdownMenu aria-label="Notification actions">
+                <DropdownItem key="1">Notificação 1</DropdownItem>
+                <DropdownItem key="2">Notificação 2</DropdownItem>
+                <DropdownItem key="3">Ver todas as notificações</DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+          </NavbarItem>
+
+          <NavbarItem className="hidden sm:flex items-center">
+            <Dropdown>
+              <DropdownTrigger>
+                <Avatar as="button" color="default" name="User" size="md" />
+              </DropdownTrigger>
+              <DropdownMenu aria-label="Profile actions">
+                <DropdownItem key="profile">Perfil</DropdownItem>
+                <DropdownItem key="settings">Configurações</DropdownItem>
+                <DropdownItem key="logout">Sair</DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+          </NavbarItem>
+        </NavbarContent>
       </NavbarContent>
 
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
@@ -97,7 +116,6 @@ export const Navbar = () => {
       </NavbarContent>
 
       <NavbarMenu>
-        {searchInput}
         <div className="mx-4 mt-2 flex flex-col gap-2">
           {siteConfig.navMenuItems.map((item, index) => (
             <NavbarMenuItem key={`${item.label}-${index}`}>
